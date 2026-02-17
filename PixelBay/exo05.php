@@ -55,8 +55,18 @@ $stockCible = 100;
 $parLivraison = 8;
 $nombreLivraisons = 0;
 
+$mois = ["Janvier", "Février", "Mars", "Avril", "Mai", "Juin", "Juillet", "Août", "Septembre", "Octobre", "Novembre", "Décembre"];
+$jeuxPhares = ["Cyber Race", "Pixel Quest", "Block Master", "Sky Pilot", "Dungeon Crawl", "Mystic Lands", "Battle Arena", "Escape Room","Neural Rush", "Horror House", "Festival Games", "Winter Sports"];
+
 while ($stockActuel < $stockCible) {
-    $stockActuel + $parLivraison;
-    $parLivraison++;
+    $stockActuel = $stockActuel + $parLivraison;
+    $nombreLivraisons++;
+    echo 'Livraison ' . $nombreLivraisons . ' : ' . 'stock = ' . $stockActuel . '<br>';
+};
+
+echo "Le nombre total de livraisons nécessaires pour atteindre le stock cible de $stockCible est de $nombreLivraisons livraisons.";
+
+for ($i = 0; $i< count($mois); $i++) {
+    echo $mois[$i] . ' : ' . $jeuxPhares[$i] . '<br>';
 };
 ?>
