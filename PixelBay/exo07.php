@@ -69,48 +69,36 @@ foreach ($collection as $jeu) { // Ligne correcte. Le foreach appelle afficherJe
 
 
 function calculerMoyenneScores($scores) {
-    $nombreScores = count($scores);
+    // $nombreScores = count($scores); - Option 1
     $totalScores = 0;
     foreach ($scores as $tousScores) {
         $totalScores = $totalScores + $tousScores;
     }
-    $moyenneScores = $totalScores / $nombreScores;
-    echo $moyenneScores;
-    return $moyenneScores;
+    // $moyenneScores = $totalScores / $nombreScores; - Option 1
+    // echo $moyenneScores; - Option 1
+    // return $moyenneScores; - Option 1
+    return $totalScores / count($scores); // Option 2
 }
 
 calculerMoyenneScores($jeu["Score"]); // à insérer dans la fonction trouverMeilleureMoyenneJeu
 
-function trouverMeilleureMoyenneJeu($jeu) {
-    $meilleureMoyenneActuelle = 0;
-    $meilleurJeu = $jeu; // Modifier la valeur
-    foreach($collection as $jeu){
-        calculerMoyenneScores($moyenneScores); 
-            if ($meilleureMoyenneActuelle < $moyenneScores) {
-            $meilleureMoyenneActuelle = $moyenneScores;
+function trouverMeilleureMoyenneJeu($collection) {
+    $meilleureMoyenneActuelle = 0; // Initialiser la variable pour l'utiliser ensuite dans la boucle
+    $meilleurJeu = null; // Initialiser la variable pour l'utiliser ensuite dans la boucle
+    foreach($collection as $jeu) {
+        $resultatCalculMoyenneScores = calculerMoyenneScores($jeu["Score"]); // Récupérer le résultat de la fonction et le stocker dans la variable $resultatCalculMoyenneScores
+        var_dump($meilleureMoyenneActuelle);
+        var_dump($resultatCalculMoyenneScores);
+            if ($meilleureMoyenneActuelle < $resultatCalculMoyenneScores) {
+            $meilleureMoyenneActuelle = $resultatCalculMoyenneScores;
             $meilleurJeu = $jeu; // Ajouter la façon de récupérer le meilleur jeu
             } else {
 
             };
     };
-    echo $jeu["Titre"] . ', ' . $jeu["Prix"] . ', ' . $jeu["Genre"] . ', ' . $jeu["Stock"] . ', ' . $texte . "<br>";
     return $meilleurJeu;
 };
 
-
-
-
-// foreach ($Score as $scores) { 
-
-
-    // $i< count($jeu["Score"]); $i++
-    // echo $scores . ', ';
-    // $i = $i - 1
-    // echo $scores;
-    // if (($Score -1) < $nombreScores) {
-    //     echo $scores . ', ';
-    // } else {
-    //     echo $scores . '. ';
-    // }
-
+$jeuFinal = trouverMeilleureMoyenneJeu($collection);
+afficherJeu($jeuFinal);
 ?>
