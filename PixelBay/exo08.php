@@ -65,7 +65,7 @@ function calculerTTC($totalHT, $tva) {
 $totalTTC = calculerTTC($totalHT, $tva);
 ?>
 
-<h2>Facture PixelBay</h2>gi
+<h2>Facture PixelBay</h2>
 <table border = "1">
     <tr>
         <th>Article</th>
@@ -80,7 +80,6 @@ $totalTTC = calculerTTC($totalHT, $tva);
             <td><?= $article["quantite"] ?></td>
             <td><?= $sousTotal = $article["prix_unitaire"] * $article["quantite"] ?></td>
         </tr>
-        <tr>
     <?php endforeach; ?>
     <tr>
         <td colspan="3">Total HT</td>

@@ -78,13 +78,19 @@ $catalogue = [
     ["titre" => "Racing Thunder", "prix" => 34.99, "genre" => "Course"]
 ];
 
-$jeu = $_GET["q"] ?? "";
+$rechercheJeu = $_GET["q"] ?? ""; // On récupère la saisie utilisateur grâce à $_GET et ["q"]. S'il n'a rien saisi, on assigne la valeur vide "". 
+$resultatRecherche = [];
 
-// if ($jeu !== "") {    //Code exemple, écrit pendant la notion de cours sur $_GET
-//     echo "Vous cherchez : " . $jeu;
-// } else {
-//     echo "Que cherchez-vous ?";
-// };
+if ($rechercheJeu !== "") { // On vérifie ce que contient la variable. Si elle contient une saisie utilisateur alors on lance une action :
+    foreach ($catalogue as $jeuActuel) { // Filtrage du catalogue
+        (str_contains(strtolower($jeuActuel["titre"]), strtolower($rechercheJeu))); // Si la valeur de la variable issue du $_GET est identique au titre d'un jeu existant dans la base de donnée, alors action :
+        array_push($resultatRecherche, $jeuActuel);
+    };
+
+    // Echo "liste de jeux" // Affiche la liste des jeux correspondants
+} else { // Si elle est vide, on prévoit une autre action.
+    Echo "Aucun résultat."; 
+};
 
 ?>
 
@@ -102,6 +108,22 @@ $jeu = $_GET["q"] ?? "";
         <button type="submit">Rechercher</button>
     </form>
 
+    <h2>Résultats de la recherche</h2>
+        <table border = "1">
+            <tr>
+                <th>Nom du jeu</th>
+                <th>Prix</th>
+                <th>Genre</th>
+            </tr>
+            <?php foreach ($resultatRecherche as $jeuActuel) : ?>
+            <tr>
+                <td><?= $jeuActuel["titre"] ?></td>
+                <td><?= $jeuActuel["prix"] ?></td>
+                <td><?= $jeuActuel["genre"] ?></td>
+            </tr>
+            <?php endforeach; ?>
     <!-- Affichez les résultats ici -->
+        </table>
+
 </body>
 </html>
