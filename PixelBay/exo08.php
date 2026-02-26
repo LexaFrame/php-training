@@ -65,7 +65,7 @@ function calculerTTC($totalHT, $tva) {
 $totalTTC = calculerTTC($totalHT, $tva);
 ?>
 
-<h2>Facture PixelBay</h2>
+<h2>Facture PixelBay</h2>gi
 <table border = "1">
     <tr>
         <th>Article</th>
