@@ -39,6 +39,59 @@ Serveur PHPNavigateurServeur PHPNavigateurGET /exo09.php?q=cyber$_GET['q'] = "cy
 
 */
 
+$commandes = [
+    ["nom" => "Cyber Race", "prix_unitaire" => 49.99, "quantite" => 2],
+    ["nom" => "Manette Pro", "prix_unitaire" => 59.99, "quantite" => 1],
+    ["nom" => "Carte Mémoire 128Go", "prix_unitaire" => 24.99, "quantite" => 3]
+];
 
+$tva = 0.20;
+$prixHT = 0;
+$totalHT = 0; // Doit être déclaré avant la boucle pour accumuler dedans.
 
+foreach ($commandes as $article) {
+    $prixHT = $article["prix_unitaire"];
+    $quantite = $article["quantite"];
+    $sousTotal = $prixHT * $quantite; // Pas de return pour le sous-total vu qu'il n'existe que dans cette boucle et est écrasé à chaque tour. Ni pour totalHT car pas de réutilisation dans une autre fonction, l'accumulation suffit.
+    $totalHT += $sousTotal;
+};
+
+function calculerTTC($totalHT, $tva) {
+    $montantTVA = $totalHT * $tva;
+    $totalTTC = $totalHT + $montantTVA;
+    return $totalTTC;
+};
+
+$totalTTC = calculerTTC($totalHT, $tva);
 ?>
+
+<h2>Facture PixelBay</h2>
+<table border = "1">
+    <tr>
+        <th>Article</th>
+        <th>Prix unitaire</th>
+        <th>Quantité</th>
+        <th>Sous-total</th>
+    </tr>
+    <?php foreach($commandes as $article) : ?>
+        <tr>
+            <td><?= $article["nom"] ?></td>
+            <td><?= $article["prix_unitaire"] ?></td>
+            <td><?= $article["quantite"] ?></td>
+            <td><?= $sousTotal = $article["prix_unitaire"] * $article["quantite"] ?></td>
+        </tr>
+        <tr>
+    <?php endforeach; ?>
+    <tr>
+        <td colspan="3">Total HT</td>
+        <td><?= $totalHT ?></td>
+    </tr>
+    <tr>
+        <td colspan="3">TVA 20%</td>
+        <td><?= $montantTVA = $totalTTC - $totalHT ?></td>
+    </tr>
+    <tr>
+        <td colspan="3">Total TTC</td>
+        <td><?= $totalTTC ?></td>
+    </tr>
+</table>

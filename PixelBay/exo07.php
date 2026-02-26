@@ -80,7 +80,7 @@ function calculerMoyenneScores($scores) {
     return $totalScores / count($scores); // Option 2
 }
 
-calculerMoyenneScores($jeu["Score"]); // à insérer dans la fonction trouverMeilleureMoyenneJeu
+// calculerMoyenneScores($jeu["Score"]); : à insérer dans la fonction trouverMeilleureMoyenneJeu
 
 function trouverMeilleureMoyenneJeu($collection) {
     $meilleureMoyenneActuelle = 0; // Initialiser la variable pour l'utiliser ensuite dans la boucle
@@ -91,7 +91,7 @@ function trouverMeilleureMoyenneJeu($collection) {
         var_dump($resultatCalculMoyenneScores);
             if ($meilleureMoyenneActuelle < $resultatCalculMoyenneScores) {
             $meilleureMoyenneActuelle = $resultatCalculMoyenneScores;
-            $meilleurJeu = $jeu; // Ajouter la façon de récupérer le meilleur jeu
+            $meilleurJeu = $jeu; // Récupération du meilleur jeu
             } else {
 
             };
