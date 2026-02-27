@@ -79,19 +79,21 @@ $catalogue = [
 ];
 
 $rechercheJeu = $_GET["q"] ?? ""; // On récupère la saisie utilisateur grâce à $_GET et ["q"]. S'il n'a rien saisi, on assigne la valeur vide "". 
-$resultatRecherche = [];
+$resultatRecherche = []; // Création de la variable qui va permettre de stocker les résultats de la recherche
 
 if ($rechercheJeu !== "") { // On vérifie ce que contient la variable. Si elle contient une saisie utilisateur alors on lance une action :
-    foreach ($catalogue as $jeuActuel) { // Filtrage du catalogue
-        (str_contains(strtolower($jeuActuel["titre"]), strtolower($rechercheJeu))); // Si la valeur de la variable issue du $_GET est identique au titre d'un jeu existant dans la base de donnée, alors action :
-        array_push($resultatRecherche, $jeuActuel);
+    foreach ($catalogue as $jeuActuel) { // Filtrage du catalogue :
+        if(str_contains(strtolower($jeuActuel["titre"]), strtolower($rechercheJeu))) { // Si la valeur de la variable issue du $_GET est identique au titre d'un jeu existant dans la base de donnée (tout en minuscule dans les deux cas), alors action :
+            array_push($resultatRecherche, $jeuActuel); // Récupère la liste des jeux correspondants à la saisie utilisateur
+        }
     };
 
-    // Echo "liste de jeux" // Affiche la liste des jeux correspondants
-} else { // Si elle est vide, on prévoit une autre action.
-    Echo "Aucun résultat."; 
+    if (empty($resultatRecherche)) { // Si $resultatRecherche est vide, c'est-à-dire si aucun jeu ne correspond, affiche "Aucun résultat."
+        Echo "Aucun résultat.";
+    };
+} else { // Si la variable qui stocke la saisie utilisateur est vide, on prévoit une autre action :
+    Echo "Aucun résultat.";
 };
-
 ?>
 
 <!DOCTYPE html>
@@ -120,6 +122,7 @@ if ($rechercheJeu !== "") { // On vérifie ce que contient la variable. Si elle 
                 <td><?= $jeuActuel["titre"] ?></td>
                 <td><?= $jeuActuel["prix"] ?></td>
                 <td><?= $jeuActuel["genre"] ?></td>
+                <td colspan = "3"><?= $resultatRecherche ?></td>
             </tr>
             <?php endforeach; ?>
     <!-- Affichez les résultats ici -->
