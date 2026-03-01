@@ -78,7 +78,7 @@ $catalogue = [
     ["titre" => "Racing Thunder", "prix" => 34.99, "genre" => "Course"]
 ];
 
-$rechercheJeu = $_GET["q"] ?? ""; // On récupère la saisie utilisateur grâce à $_GET et ["q"]. S'il n'a rien saisi, on assigne la valeur vide "". 
+$rechercheJeu = isset($_GET["q"]) ? trim($_GET["q"]) : ""; // On récupère la saisie utilisateur grâce à $_GET et ["q"]. S'il n'a rien saisi, on assigne la valeur vide "". On vérifie avec isset que l'utilisateur a bien soumis le formulaire de recherche. Utilisation de trim pour éviter que la saisie d'un espace n'affiche toute la liste des jeux.
 $resultatRecherche = []; // Création de la variable qui va permettre de stocker les résultats de la recherche
 
 if ($rechercheJeu !== "") { // On vérifie ce que contient la variable. Si elle contient une saisie utilisateur alors on lance une action :
@@ -87,12 +87,6 @@ if ($rechercheJeu !== "") { // On vérifie ce que contient la variable. Si elle 
             array_push($resultatRecherche, $jeuActuel); // Récupère la liste des jeux correspondants à la saisie utilisateur
         }
     };
-
-    if (empty($resultatRecherche)) { // Si $resultatRecherche est vide, c'est-à-dire si aucun jeu ne correspond, affiche "Aucun résultat."
-        Echo "Aucun résultat.";
-    };
-} else { // Si la variable qui stocke la saisie utilisateur est vide, on prévoit une autre action :
-    Echo "Aucun résultat.";
 };
 ?>
 
@@ -117,15 +111,23 @@ if ($rechercheJeu !== "") { // On vérifie ce que contient la variable. Si elle 
                 <th>Prix</th>
                 <th>Genre</th>
             </tr>
-            <?php foreach ($resultatRecherche as $jeuActuel) : ?>
+            <!-- Ouverture de la balise php pour le IF, fermeture sur la même ligne -->
+             <?php if (isset($_GET["q"]) && ($rechercheJeu !== "") && empty($resultatRecherche)) { ?>
+            <!-- Insertion des lignes de code permettant d'afficher "aucun résultat" si la saisie utilisateur ne correspond pas à au moins un jeu de la base de données -->
+                <tr>    
+                <td colspan = "3"><?= "Aucun résultat." ?></td> 
+                </tr>
+
+            <!-- Retour de la balise php pour écrire le SINON du IF, fermée dans la foulée -->
+            <?php } else { foreach ($resultatRecherche as $jeuActuel) {?>
+            <!-- Insertion des lignes de code permettant d'afficher "aucun résultat" si la saisie utilisateur ne correspond pas à au moins un jeu de la base de données -->
             <tr>
-                <td><?= $jeuActuel["titre"] ?></td>
+                <td><?= htmlspecialchars($jeuActuel["titre"]) ?></td>
                 <td><?= $jeuActuel["prix"] ?></td>
-                <td><?= $jeuActuel["genre"] ?></td>
-                <td colspan = "3"><?= $resultatRecherche ?></td>
+                <td><?= htmlspecialchars($jeuActuel["genre"]) ?></td>
             </tr>
-            <?php endforeach; ?>
-    <!-- Affichez les résultats ici -->
+            <!-- Réouverture de la balise php pour fermer le IF/ELSE -->
+            <?php }}  ?>
         </table>
 
 </body>
