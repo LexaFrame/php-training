@@ -79,6 +79,7 @@ $catalogue = [
 ];
 
 $rechercheJeu = isset($_GET["q"]) ? trim($_GET["q"]) : ""; // On récupère la saisie utilisateur grâce à $_GET et ["q"]. S'il n'a rien saisi, on assigne la valeur vide "". On vérifie avec isset que l'utilisateur a bien soumis le formulaire de recherche. Utilisation de trim pour éviter que la saisie d'un espace n'affiche toute la liste des jeux.
+// Alternative : $rechercheJeu = $_GET["q"] ?? "";
 $resultatRecherche = []; // Création de la variable qui va permettre de stocker les résultats de la recherche
 
 if ($rechercheJeu !== "") { // On vérifie ce que contient la variable. Si elle contient une saisie utilisateur alors on lance une action :

@@ -1,3 +1,0 @@
-<td rowspan = "2"><?= "Test" ?></td>
-
-avec colspan pour le sous total
